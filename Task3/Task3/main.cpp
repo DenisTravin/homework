@@ -6,7 +6,7 @@
 using namespace std;
 int main()
 {
-	int countOfEmpty = 0;
+	int countOfNotEmpty = 0;
 	ifstream file("test.txt", ios::in);
 	if (!file.is_open())
 	{
@@ -31,12 +31,12 @@ int main()
 			{
 				isEmpty = false;
 			}
-		if (isEmpty)
+		if (!isEmpty)
 		{
-			countOfEmpty++;
+			countOfNotEmpty++;
 		}
 	}
-	printf("%i", countOfEmpty);
+	printf("%i", countOfNotEmpty);
 	scanf("%*s");
 	return 0;
 }
@@ -52,5 +52,5 @@ check
 
 
 "
-output:6
+output:3
 */
