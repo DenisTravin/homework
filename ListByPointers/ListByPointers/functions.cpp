@@ -6,7 +6,6 @@ using namespace std;
 void addNewElement(listHead *list, int elementNum)//add new element in list
 {
 	listElement *newElement = new listElement;
-
 	bool sortFlag = false;
 	if (list->head == nullptr)
 	{
@@ -43,15 +42,15 @@ void addNewElement(listHead *list, int elementNum)//add new element in list
 	newElement->value = elementNum;
 	return;
 }
+
 void printList(listHead *list)//print out all list
 {
-	listElement *temp;
 	if (list->head == nullptr)
 	{
 		cout << "List is empty!" << endl;
 		return;
 	}
-	temp = list->head;
+	listElement *temp = list->head;
 	while (temp->next != nullptr)
 	{
 		cout << temp->value << " ";
@@ -59,9 +58,17 @@ void printList(listHead *list)//print out all list
 	}
 	cout << temp->value << " " << endl;
 }
-void delElement(listHead *list, int elementNum)//delete elements from list with value = elementNum
+
+void delElement(listElement *element)
 {
-	listElement *tmp;
+	listHead keapNextElement;
+	keapNextElement.head = element->next->next;
+	delete element->next;
+	element->next = keapNextElement.head;
+}
+
+void delElementByNumber(listHead *list, int elementNum)//delete elements from list with value = elementNum
+{
 	listHead keapNextElement;
 	while (list->head != nullptr && list->head->value == elementNum)
 	{
@@ -73,16 +80,32 @@ void delElement(listHead *list, int elementNum)//delete elements from list with 
 	{
 		return;
 	}
-	tmp = list->head;
+	listElement *tmp = list->head;
 	while (tmp->next != nullptr)
 	{
 		if (tmp->next->value == elementNum)
 		{
-			keapNextElement.head = tmp->next->next;
-			delete tmp->next;
-			tmp->next = keapNextElement.head;
+			delElement(tmp);
 		}
 		tmp = tmp->next;
 	}
+	return;
+}
+
+void removeAll(listHead *list)
+{
+	if (list->head == nullptr)
+	{
+		return;
+	}
+	listElement *tmp = list->head;
+	listElement *nextTmp = tmp->next;
+	while (tmp->next != nullptr)
+	{
+		nextTmp = tmp->next;
+		delete tmp;
+		tmp = nextTmp;
+	}
+	delete tmp;
 	return;
 }

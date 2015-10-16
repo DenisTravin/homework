@@ -23,11 +23,12 @@ void main()
 		case 2:
 			cout << "Input number: ";
 			cin >> elementNum;
-			delElement(&list, elementNum);
+			delElementByNumber(&list, elementNum);
 			break;
 		case 3:
 			printList(&list);
 			break;
 		}
 	}
+	removeAll(&list);
 }

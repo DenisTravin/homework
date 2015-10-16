@@ -10,6 +10,8 @@ struct listHead
 	listElement *head;
 };
 
+void delElement(listElement *element);
 void addNewElement(listHead *list, int elementNum);
 void printList(listHead *list);
-void delElement(listHead *list, int elementNum);
+void delElementByNumber(listHead *list, int elementNum);
+void removeAll(listHead *element);
