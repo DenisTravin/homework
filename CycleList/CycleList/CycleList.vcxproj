@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{10A81AAD-3ED8-43DF-A13A-8D6F887E221F}</ProjectGuid>
+    <ProjectGuid>{DC71C880-A443-40E9-ABE4-41C8562D74A4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CycleList</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -143,8 +143,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="functions.cpp" />
-    <ClCompile Include="functions.h" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="functions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
