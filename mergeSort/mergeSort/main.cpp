@@ -5,14 +5,12 @@
 
 using namespace std;
 
-
 int numOfElem = 0;
-
 
 void main()
 {
 	listHead list;
-	int userChoise = -1;
+	int userChoise = -1;//yes, I try to ignor bin files
 	string findNum;
 	bool havePerson = false;
 	ifstream fin("out.txt");
