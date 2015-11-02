@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\CycleList\list.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\CycleList\main.cpp">
+    <ClCompile Include="list.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\CycleList\list.h">
+    <ClInclude Include="list.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

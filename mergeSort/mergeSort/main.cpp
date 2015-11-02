@@ -43,7 +43,7 @@ void mergeSort(listElement **head, int sortChoise)
 void main()
 {
 	listHead list;
-	int userChoise = -1;//yes, I try to ignor bin files
+	int userChoise = -1;
 	string findNum;
 	bool havePerson = false;
 	ifstream fin("out.txt");
@@ -108,4 +108,3 @@ void main()
 		}
 	}
 }
-//i have problems with git!
