@@ -7,6 +7,39 @@ using namespace std;
 
 int numOfElem = 0;
 
+void splitList(listElement *source, listElement **front, listElement **back)
+{
+	listElement *current = source;
+	if (numOfElem < 2)
+	{
+		*front = current;
+		*back = nullptr;
+	}
+	else
+	{
+		for (int i = 0; i < (numOfElem - 1) / 2; i++)
+		{
+			current = current->next;
+		}
+		*front = source;
+		*back = current;
+		current->next = nullptr;
+	}
+}
+
+void mergeSort(listElement **head, int sortChoise)
+{
+	listElement *a, *b;
+	if (*head == nullptr || &(*head)->next == nullptr)
+	{
+		return;
+	}
+	splitList(*head, &a, &b);
+	mergeSort(&a, sortChoise);
+	mergeSort(&b, sortChoise);
+
+}
+
 void main()
 {
 	listHead list;
@@ -56,38 +89,6 @@ void main()
 			printList(&list, numOfElem);
 			break;
 		}
-		//case 2:
-		//	/*havePerson = false;
-		//	cout << "Input name: ";
-		//	cin >> findNum;
-		//	for (int i = 0; i <= book.last; i++)
-		//	{
-		//		if (findNum == book.array[i].name)
-		//		{
-		//			cout << "His/her number is: " << book.array[i].number << endl;
-		//			havePerson = true;
-		//			break;
-		//		}
-		//	}
-		//	if (!havePerson)
-		//		cout << "We don't have this person in our phonebook" << endl;*/
-		//	break;
-		//case 3:
-		//	/*havePerson = false;
-		//	cout << "Input number: ";
-		//	cin >> findNum;
-		//	for (int i = 0; i <= book.last; i++)
-		//	{
-		//		if (findNum == book.array[i].number)
-		//		{
-		//			cout << "His/her name is: " << book.array[i].name << endl;
-		//			havePerson = true;
-		//			break;
-		//		}
-		//	}
-		//	if (!havePerson)
-		//		cout << "We don't have this person in our phonebook" << endl;*/
-		//	break;
 		case 4:
 		{
 			ofstream fout;
@@ -107,4 +108,4 @@ void main()
 		}
 	}
 }
-
+//i have problems with git!
