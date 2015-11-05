@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C02BF31D-B0F2-488F-BDF9-F55EE022C4F4}</ProjectGuid>
+    <ProjectGuid>{E0138419-08BA-4C07-BFFB-0F8158EFDE3C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>mergeSort</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -142,11 +142,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\CycleList\list.cpp" />
-    <ClCompile Include="..\..\..\CycleList\main.cpp" />
+    <ClCompile Include="list.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\CycleList\list.h" />
+    <ClInclude Include="list.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,40 +10,73 @@ int numOfElem = 0;
 void splitList(listElement *source, listElement **front, listElement **back)
 {
 	listElement *current = source;
-	if (numOfElem < 2)
+	int len = length(source);
+	if (len < 2)
 	{
 		*front = current;
 		*back = nullptr;
 	}
 	else
 	{
-		for (int i = 0; i < (numOfElem - 1) / 2; i++)
+		for (int i = 0; i < (len - 1) / 2; i++)
 		{
 			current = current->next;
 		}
 		*front = source;
-		*back = current;
+		*back = current->next;
 		current->next = nullptr;
 	}
 }
-
-void mergeSort(listElement **head, int sortChoise)
+int stringComp(string a, string b)
 {
-	listElement *a, *b;
-	if (*head == nullptr || &(*head)->next == nullptr)
+	for (int i = 0; i < a.size(); i++)
+	{
+		if (a[i] != b[i])
+			return (int)(b[i] - a[i]);
+	}
+}
+listElement* sortedMerge(listElement *a, listElement *b)
+{
+	listElement *result = nullptr;
+	if (a == nullptr)
+	{
+		return(b);
+	}
+	else if (b == nullptr)
+	{
+		return(a);
+	}
+	if (stringComp(a->human.name, b->human.name) >= 0)
+	{
+		result = a;
+		result->next = sortedMerge(a->next, b);
+	}
+	else
+	{
+		result = b;
+		result->next = sortedMerge(a, b->next);
+	}
+	return result;
+}
+void mergeSort(listElement **headRef/*, int sortChoise*/)
+{
+	listElement *head = *headRef;
+	listElement *a;
+	listElement *b;
+	if (head == nullptr || head->next == nullptr)
 	{
 		return;
 	}
-	splitList(*head, &a, &b);
-	mergeSort(&a, sortChoise);
-	mergeSort(&b, sortChoise);
-
+	splitList(head, &a, &b);
+	mergeSort(&a);
+	mergeSort(&b);
+	*headRef = sortedMerge(a, b);
 }
 
 void main()
 {
 	listHead list;
-	int userChoise = -1;//yes, I try to ignor bin files
+	int userChoise = -1;
 	string findNum;
 	bool havePerson = false;
 	ifstream fin("out.txt");
@@ -65,6 +98,10 @@ void main()
 			temp = newElement;
 			fin >> newElement->human.name;
 			fin >> newElement->human.number;
+			if (i == numOfElem)
+			{
+				newElement->next = nullptr;
+			}
 		}
 	}
 	fin.close();
@@ -89,6 +126,12 @@ void main()
 			printList(&list, numOfElem);
 			break;
 		}
+		case 2:
+		{
+			mergeSort(&list.head);
+			printList(&list, numOfElem);
+			break;
+		}
 		case 4:
 		{
 			ofstream fout;
@@ -108,4 +151,3 @@ void main()
 		}
 	}
 }
-//i have problems with git!

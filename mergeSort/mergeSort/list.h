@@ -21,4 +21,5 @@ struct listHead
 
 void printList(listHead *list, int num);
 void delElement(listElement *element);
+int length(listElement* head);
 

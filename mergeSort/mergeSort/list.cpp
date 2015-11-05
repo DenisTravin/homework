@@ -3,6 +3,17 @@
 
 using namespace std;
 
+int length(listElement* head)
+{
+	int count = 0;
+	listElement* current = head;
+	while (current != nullptr)
+	{
+		count++;
+		current = current->next;
+	}
+	return(count);
+}
 void printList(listHead *list, int num)
 {
 	if (list->head == nullptr)
