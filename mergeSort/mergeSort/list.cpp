@@ -14,8 +14,31 @@ int length(listElement* head)
 	}
 	return(count);
 }
+
+void splitList(listElement *source, listElement **front, listElement **back)//split the list to two list's
+{
+	listElement *current = source;
+	int len = length(source);
+	if (len < 2)
+	{
+		*front = current;
+		*back = nullptr;
+	}
+	else
+	{
+		for (int i = 0; i < (len - 1) / 2; i++)
+		{
+			current = current->next;
+		}
+		*front = source;
+		*back = current->next;
+		current->next = nullptr;
+	}
+}
+
 void printList(listHead *list, int num)
 {
+	cout << "Your phonebook: " << endl;
 	if (list->head == nullptr)
 	{
 		cout << "List is empty!" << endl;
@@ -31,10 +54,3 @@ void printList(listHead *list, int num)
 	cout << temp->human.name << " " << temp->human.number << endl;
 }
 
-void delElement(listElement *element)
-{
-	listHead keapNextElement;
-	keapNextElement.head = element->next->next;
-	delete element->next;
-	element->next = keapNextElement.head;
-}

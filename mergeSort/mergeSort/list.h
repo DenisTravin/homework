@@ -20,6 +20,6 @@ struct listHead
 };
 
 void printList(listHead *list, int num);
-void delElement(listElement *element);
+void splitList(listElement *source, listElement **front, listElement **back);
 int length(listElement* head);
 
