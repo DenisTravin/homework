@@ -35,7 +35,7 @@ int funcRabinCarp(string text, string sub)
 	{
 		if (hsub == hs)
 		{
-			bool checkEq = true;
+			/*bool checkEq = true;
 			for (int j = 0; j < subLen; j++)
 			{
 				if (sub[j] != text[i + j - 1])
@@ -47,7 +47,8 @@ int funcRabinCarp(string text, string sub)
 			if (checkEq)
 			{
 				res++;
-			}
+			}*/
+			res++;
 		}
 		//hs = hashFunc(text, i + 0, subLen + i);
 		hs = (hs - (text[i - 1] - 'a' + 1) * powNum(p, subLen - 1)) * p + (text[i - 1 + subLen] - 'a' + 1);
