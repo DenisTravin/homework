@@ -35,7 +35,7 @@ int funcRabinCarp(string text, string sub)
 	{
 		if (hsub == hs)
 		{
-			/*bool checkEq = true;
+			bool checkEq = true;
 			for (int j = 0; j < subLen; j++)
 			{
 				if (sub[j] != text[i + j - 1])
@@ -46,21 +46,26 @@ int funcRabinCarp(string text, string sub)
 			}
 			if (checkEq)
 			{
-				res++;
-			}*/
-			res++;
+				return i;
+			}
 		}
 		//hs = hashFunc(text, i + 0, subLen + i);
 		hs = (hs - (text[i - 1] - 'a' + 1) * powNum(p, subLen - 1)) * p + (text[i - 1 + subLen] - 'a' + 1);
 	}
-	return res;
+	return 0;
 }
 
 void main()
 {
 	string sub = "aba";
-	string text = "vababavabav";
-	int res = funcRabinCarp(text, sub);
-	printf("%i", res);
+	string text = "abbabvaba";
+	if (funcRabinCarp(text, sub) == 0)
+	{
+		printf("Sub don't found");
+	}
+	else
+	{
+		printf("Sub found!");
+	}
 	scanf("%*s");
 }
