@@ -20,7 +20,7 @@ long long hashFunc(string source, int first, int last)
 	long long res = 0;
 	for (int i = first; i < last; i++)
 	{
-		res += (long long)(source[i] - 'a' + 1) * powNum(p, i - first);
+		res += (long long)(source[i] - 'a' + 1) * powNum(p, last - i - 1);
 	}
 	return res;
 }
@@ -50,7 +50,7 @@ int funcRabinCarp(string text, string sub)
 			}
 		}
 		//hs = hashFunc(text, i + 0, subLen + i);
-		hs = (hs - (text[i - 1] - 'a' + 1)) / p + (text[i - 1 + subLen] - 'a' + 1) * powNum(p, subLen - 1);
+		hs = (hs - (text[i - 1] - 'a' + 1) * powNum(p, subLen - 1)) * p + (text[i - 1 + subLen] - 'a' + 1);
 	}
 	return res;
 }
