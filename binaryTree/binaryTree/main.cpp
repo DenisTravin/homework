@@ -20,7 +20,7 @@ void main()
 		{
 			int tempNumber = 0;
 			fin >> tempNumber;
-			add(&tree.head, tempNumber);
+			addElement(&tree.head, tempNumber);
 		}
 	}
 	fin.close();
@@ -34,7 +34,7 @@ void main()
 			int num;
 			printf("Input number: ");
 			scanf("%i", &num);
-			add(&tree.head, num);
+			addElement(&tree.head, num);
 		}
 		if (userChoise == 2)
 		{
@@ -49,7 +49,7 @@ void main()
 			int num;
 			printf("Input number: ");
 			scanf("%i", &num);
-			if (find(tree.head, num))
+			if (findElement(tree.head, num))
 			{
 				printf("Your number in tree!");
 			}
@@ -63,9 +63,11 @@ void main()
 			int num;
 			printf("Input number: ");
 			scanf("%i", &num);
-			del(tree.head, num);
+			deleteElementByNumber(tree.head, num, &tree);
 		}
 		printf("\n\nInput your choise: ");
 		scanf("%i", &userChoise);
 	}
+	deleteAllTree(tree.head);
+	tree.head = nullptr;
 }

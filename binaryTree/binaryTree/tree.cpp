@@ -1,7 +1,7 @@
 #include <cstdio>
 #include "tree.h"
 
-bool find(treeElement* source, int num)
+bool findElement(treeElement* source, int num)//function try to find element in tree
 {
 	if (source == nullptr)
 	{
@@ -13,14 +13,14 @@ bool find(treeElement* source, int num)
 	}
 	else if (num > source->number)
 	{
-		if (find(source->right, num))
+		if (findElement(source->right, num))
 		{
 			return 1;
 		}
 	}
 	else
 	{
-		if (find(source->left, num))
+		if (findElement(source->left, num))
 		{
 			return 1;
 		}
@@ -28,14 +28,20 @@ bool find(treeElement* source, int num)
 	return 0;
 }
 
-void add(treeElement** source, int num)
+treeElement* makeNewElement(int num)//function to give memory for new element and party of inicialisation
+{
+	treeElement* newElement = new treeElement;
+	newElement->number = num;
+	newElement->left = nullptr;
+	newElement->right = nullptr;
+	return newElement;
+}
+
+void addElement(treeElement** source, int num)//function add elemenet in tree(double pointer for source, it's for adding element then tree is empty)
 {
 	if ((*source) == nullptr)
 	{
-		treeElement* newElement = new treeElement;
-		newElement->number = num;
-		newElement->left = nullptr;
-		newElement->right = nullptr;
+		treeElement* newElement = makeNewElement(num);
 		newElement->parent = nullptr;
 		*source = newElement;
 		return;
@@ -48,33 +54,27 @@ void add(treeElement** source, int num)
 	{
 		if ((*source)->right == nullptr)
 		{
-			treeElement* newElement = new treeElement;
-			newElement->number = num;
-			newElement->left = nullptr;
-			newElement->right = nullptr;
+			treeElement* newElement = makeNewElement(num);
 			newElement->parent = (*source);
 			(*source)->right = newElement;
 			return;
 		}
-		add(&(*source)->right, num);
+		addElement(&(*source)->right, num);
 	}
 	else
 	{
 		if ((*source)->left == nullptr)
 		{
-			treeElement* newElement = new treeElement;
-			newElement->number = num;
-			newElement->left = nullptr;
-			newElement->right = nullptr;
+			treeElement* newElement = makeNewElement(num);
 			newElement->parent = (*source);
 			(*source)->left = newElement;
 			return;
 		}
-		add(&(*source)->left, num);
+		addElement(&(*source)->left, num);
 	}
 }
 
-treeElement* delWithBothChildrenLeft(treeElement* source)
+treeElement* delWithBothChildrenLeft(treeElement* source)//seacching tree element with empty right tree
 {
 	if (source->right == nullptr)
 	{
@@ -86,7 +86,7 @@ treeElement* delWithBothChildrenLeft(treeElement* source)
 	}
 }
 
-treeElement* delWithBothChildrenRight(treeElement* source)
+treeElement* delWithBothChildrenRight(treeElement* source)//seacching tree element with empty left tree
 {
 	if (source->left == nullptr)
 	{
@@ -94,11 +94,11 @@ treeElement* delWithBothChildrenRight(treeElement* source)
 	}
 	else
 	{
-		return delWithBothChildrenLeft(source->left);
+		return delWithBothChildrenRight(source->left);
 	}
 }
 
-void del(treeElement* source, int num)//realy hard to write it, but i try and it works, read comment's
+void deleteElementByNumber(treeElement* source, int num, treeHead* tree)//delete elelement by number(realy hard to write it, but i try and it works, read comment's)
 {
 	if (source == nullptr)//if tree is empty, all is nice
 	{
@@ -108,17 +108,17 @@ void del(treeElement* source, int num)//realy hard to write it, but i try and it
 	{
 		if (num > source->number)//find number, what we need to delete
 		{
-			del(source->right, num);
+			deleteElementByNumber(source->right, num, tree);
 		}
 		else if (num < source->number)
 		{
-			del(source->left, num);
+			deleteElementByNumber(source->left, num, tree);
 		}
 		else//we find it! GO delete
 		{
-			if (source->left == nullptr && source->right == nullptr)//if tree element with this number don't have any childrens, we can just delete him
+			if (source->left == nullptr && source->right == nullptr)//if tree element with this number don't have any children, we can just delete him
 			{
-				if (source->parent->left->number == num)
+				if (source->parent->left != nullptr && source->parent->left->number == num)
 				{
 					source->parent->left = nullptr;
 				}
@@ -126,11 +126,15 @@ void del(treeElement* source, int num)//realy hard to write it, but i try and it
 				{
 					source->parent->right = nullptr;
 				}
+				if (tree->head == source)
+				{
+					tree->head = nullptr;
+				}
 				delete source;
 			}
-			else if (source->left == nullptr)//if this element have right child
+			else if (source->left == nullptr)//if this element have only right child
 			{
-				if (source->parent->left->number == num)
+				if (source->parent->left != nullptr && source->parent->left->number == num)
 				{
 					source->parent->left = source->right;
 				}
@@ -139,11 +143,15 @@ void del(treeElement* source, int num)//realy hard to write it, but i try and it
 					source->parent->right = source->right;
 				}
 				source->right->parent = source->parent;
+				if (tree->head == source)
+				{
+					tree->head = source->right;
+				}
 				delete source;
 			}
-			else if (source->right == nullptr)//if this element have left child
+			else if (source->right == nullptr)//if this element have only left child
 			{
-				if (source->parent->left->number == num)
+				if (source->parent->left != nullptr && source->parent->left->number == num)
 				{
 					source->parent->left = source->left;
 				}
@@ -152,9 +160,13 @@ void del(treeElement* source, int num)//realy hard to write it, but i try and it
 					source->parent->right = source->left;
 				}
 				source->left->parent = source->parent;
+				if (tree->head == source)
+				{
+					tree->head = source->left;
+				}
 				delete source;
 			}
-			else//now this element have 2 child
+			else//now this element have both child
 			{
 
 				if (source->right->left == nullptr)//if this element don't have ->right->left tree
@@ -163,6 +175,10 @@ void del(treeElement* source, int num)//realy hard to write it, but i try and it
 					{
 						source->left->right = source->right;
 						source->right->parent = source->left;
+						if (tree->head == source)
+						{
+							tree->head = source->left;
+						}
 					}
 					else
 					{
@@ -173,13 +189,20 @@ void del(treeElement* source, int num)//realy hard to write it, but i try and it
 						source->right->parent = temp;
 						source->left->parent = temp;
 						temp->parent = source->parent;
-						if (source->number == source->parent->left->number)
+						if (tree->head == source)
 						{
-							source->parent->left = temp;
+							tree->head = temp;
 						}
 						else
 						{
-							source->parent->right = temp;
+							if (source->parent->left != nullptr && source->number == source->parent->left->number)
+							{
+								source->parent->left = temp;
+							}
+							else
+							{
+								source->parent->right = temp;
+							}
 						}
 					}
 					delete source;
@@ -187,10 +210,14 @@ void del(treeElement* source, int num)//realy hard to write it, but i try and it
 				//OK, now GO do else
 				else
 				{
-					if (source->right->left == nullptr)
+					if (source->right->left == nullptr)//if source don't have ->right->left tree
 					{
 						source->right->left = source->left;
 						source->left->parent = source->right;
+						if (tree->head == source)
+						{
+							tree->head = source->right;
+						}
 					}
 					else
 					{
@@ -201,13 +228,20 @@ void del(treeElement* source, int num)//realy hard to write it, but i try and it
 						source->left->parent = temp;
 						source->right->parent = temp;
 						temp->parent = source->parent;
-						if (source->number == source->parent->right->number)
+						if (tree->head == source)
 						{
-							source->parent->right = temp;
+							tree->head = temp;
 						}
 						else
 						{
-							source->parent->left = temp;
+							if (source->parent->left != nullptr && source->number == source->parent->left->number)
+							{
+								source->parent->left = temp;
+							}
+							else
+							{
+								source->parent->right = temp;
+							}
 						}
 					}
 					delete source;
@@ -242,5 +276,25 @@ void printTreeDecrease(treeElement* source)
 		printTreeDecrease(source->right);
 		printf("%i ", source->number);
 		printTreeDecrease(source->left);
+	}
+}
+
+void deleteAllTree(treeElement* source)
+{
+	if (source->left == nullptr && source->right == nullptr)
+	{
+		delete source;
+	}
+	else
+	{
+		if (source->left != nullptr)
+		{
+			deleteAllTree(source->left);
+		}
+		if (source->right != nullptr)
+		{
+			deleteAllTree(source->right);
+		}
+		delete source;
 	}
 }

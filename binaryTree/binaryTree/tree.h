@@ -13,8 +13,9 @@ struct treeHead
 	treeElement *head;
 };
 
-bool find(treeElement* source, int num);
-void add(treeElement** source, int num);
-void del(treeElement* source, int num);
+bool findElement(treeElement* source, int num);
+void addElement(treeElement** source, int num);
+void deleteElementByNumber(treeElement* source, int num, treeHead* tree);
 void printTreeIncrease(treeElement* source);
 void printTreeDecrease(treeElement* source);
+void deleteAllTree(treeElement* source);
